@@ -22,8 +22,10 @@
 </template>
 
 <script>
+import postCat from '../mixins/postCat';
 
 export default {
+  mixins: [postCat],
   data() {
     return {
       catUrl: null,
@@ -48,18 +50,6 @@ export default {
     }).catch((e) => {
       console.log('e:', e);
     });
-  },
-  methods: {
-    postCat() {
-      this.$root.$firebaseRefs.cat.push(
-        {
-          url: this.catUrl,
-          comment: this.title,
-          info: 'Posted by Charles on Tuesday',
-          created_at: -1 * new Date().getTime(),
-        })
-        .then(this.$router.push('/'));
-    },
   },
 };
 </script>

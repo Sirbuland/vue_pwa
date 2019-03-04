@@ -10,7 +10,14 @@
 </template>
 
 <script>
+import postCat from '../mixins/postCat';
+import storeFile from '../mixins/storeFile';
+
 export default {
+  mixins: [
+    postCat,
+    storeFile,
+  ],
   data() {
     return {
       mediaStream: null,
@@ -31,11 +38,10 @@ export default {
   },
   methods: {
     capture() {
-      debugger;
       const mediaStreamTrack = this.mediaStream.getVideoTracks()[0];
       const imageCapture = new window.ImageCapture(mediaStreamTrack);
-      return imageCapture.takePhoto().then((blob) => {
-        console.log(blob);
+      imageCapture.takePhoto().then((blob) => {
+        this.storeFile(blob);
       });
     },
   },
